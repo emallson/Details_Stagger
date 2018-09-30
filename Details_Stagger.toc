@@ -1,0 +1,8 @@
+## Interface: 80000
+## Title: Details Stagger
+## Notes: Plugin for Details
+## RequiredDeps: Details
+## OptionalDeps: Ace3
+## SavedVariablesPerCharacter: DetailsStaggerDB
+
+Details_Stagger.lua
