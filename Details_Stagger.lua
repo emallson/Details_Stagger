@@ -31,7 +31,7 @@ function StaggerPlugin:OnCombatLogEvent(ts, event, _, sourceGuid, sourceName, so
     local spellId, spellName, spellType = ...
     if (spellId == PURIFYING_BREW) then
       local amount = UnitStagger(sourceName) / 2
-      parser:heal (event, ts, sourceGuid, sourceName, sourceFlags, sourceGuid, sourceName, sourceFlags, sourceRaidFlags, spellId, spellName, spellType, amount, 0, 0, false, false)
+      parser:heal (event, ts, sourceGuid, sourceName, sourceFlags, sourceGuid, sourceName, sourceFlags, sourceRaidFlags, spellId, spellName, spellType, amount, 0, 0, false, true)
     end
   end
 end
@@ -44,16 +44,9 @@ function StaggerPlugin:OnEvent(_, event, ...)
     local AddonName = select(1, ...)
     if (AddonName == "Details_Stagger") then
       if(_G._detalhes) then
-        local install, saveddata = _G._detalhes:InstallPlugin("RAID", "Details! Stagger", 611419, StaggerPlugin, "DETAILS_PLUGIN_STAGGER", 1, "emallson", "v0.1")
-        if (type(install) == "table" and install.error) then
-          print(install.error)
-        end
-
         _G._detalhes:RegisterEvent(StaggerPlugin, "COMBAT_PLAYER_ENTER")
         _G._detalhes:RegisterEvent(StaggerPlugin, "COMBAT_PLAYER_LEAVE")
         StaggerFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-
-        StaggerPlugin.saveddata = saveddata or {}
         StaggerPlugin.initialized = true
       end
     end
